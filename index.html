@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta content="yes" name="apple-mobile-web-app-capable">     
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">     
+		<meta content="telephone=no" name="format-detection">
+    <title><%= htmlWebpackPlugin.options.title %></title>
+    <meta id="hwp" 
+      jsweb="<%= htmlWebpackPlugin.files.chunks.appWeb.entry %>"
+      jsm="<%= htmlWebpackPlugin.files.chunks.appM.entry %>"
+      cssweb="<%= htmlWebpackPlugin.files.chunks.appWeb.css %>"
+      cssm="<%= htmlWebpackPlugin.files.chunks.appM.css %>"
+    >
+    
+  </head>
+  <body>
+    <div id="app"></div>
+    <script>
+      function IsPC(){    
+        var userAgentInfo = navigator.userAgent;  
+        var Agents = new Array("Android", "iPhone", "SymbianOS", "Windows Phone", "iPad", "iPod");    
+        var flag = true;    
+        for (var v = 0; v < Agents.length; v++) {    
+            if (userAgentInfo.indexOf(Agents[v]) > 0) { flag = false; break; }    
+        }    
+        return flag;
+      }
+      function cj(type){
+        var hwp = document.getElementById("hwp");
+        var csshref,jssrc;
+        if(type == "web"){
+            jssrc = hwp.getAttribute("jsweb");
+            csshref = hwp.getAttribute("cssweb");
+        }else{
+            jssrc = hwp.getAttribute("jsm");
+            csshref = hwp.getAttribute("cssm");
+        }
+        var head= document.getElementsByTagName('head')[0];
+        var link = document.createElement("link");
+        link.href = csshref;
+        link.setAttribute("rel","stylesheet");
+        head.appendChild(link);
+        var script = document.createElement("script");
+        script.type = "text/javascript";
+        script.src = jssrc;
+        document.body.appendChild(script);
+      }
+      if(IsPC){
+        cj("web");
+      }else{
+        cj("m");
+      }
+    </script>
+    <!-- built files will be auto injected -->
+    <script type="text/javascript" src="<%= htmlWebpackPlugin.files.chunks.manifest.entry %>"></script>
+  </body>
+</html>
