@@ -6,6 +6,8 @@
   "private": true,
   "scripts": {
     "dev": "node build/dev-server.js",
+    "devweb":"node build/dev-server.js --type web",
+    "devm":"node build/dev-server.js --type m",
     "start": "node build/dev-server.js",
     "build": "node build/build.js"
   },

@@ -6,6 +6,14 @@ var baseWebpackConfig = require('./webpack.base.conf')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 var FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 
+var devType = process.argv.pop();
+console.log("argv-------------:"+devType);
+var excluChunks;
+if(devType == "web"){
+  excluChunks = ['appM']
+}else[
+  excluChunks = ['appWeb']
+]
 // add hot-reload related code to entry chunks
 Object.keys(baseWebpackConfig.entry).forEach(function (name) {
   baseWebpackConfig.entry[name] = ['./build/dev-client'].concat(baseWebpackConfig.entry[name])
@@ -27,7 +35,8 @@ module.exports = merge(baseWebpackConfig, {
     // https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: 'index.html',
+      template: 'dev.html',
+      excludeChunks:excluChunks,
       inject: true
     }),
     new FriendlyErrorsPlugin()

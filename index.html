@@ -13,7 +13,8 @@
       cssweb="<%= htmlWebpackPlugin.files.chunks.appWeb.css %>"
       cssm="<%= htmlWebpackPlugin.files.chunks.appM.css %>"
     >
-    
+    <script type="text/javascript" src="<%= htmlWebpackPlugin.files.chunks.manifest.entry %>"></script>
+    <script type="text/javascript" src="<%= htmlWebpackPlugin.files.chunks.vendor.entry %>"></script>
   </head>
   <body>
     <div id="app"></div>
@@ -47,13 +48,15 @@
         script.src = jssrc;
         document.body.appendChild(script);
       }
-      if(IsPC){
-        cj("web");
-      }else{
-        cj("m");
+      window.onload = function(){
+        if(IsPC()){
+          cj("web");
+        }else{
+          cj("m");
+        }
       }
     </script>
     <!-- built files will be auto injected -->
-    <script type="text/javascript" src="<%= htmlWebpackPlugin.files.chunks.manifest.entry %>"></script>
+    
   </body>
 </html>
