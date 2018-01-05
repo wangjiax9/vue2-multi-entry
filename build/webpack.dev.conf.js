@@ -7,7 +7,6 @@ var HtmlWebpackPlugin = require('html-webpack-plugin')
 var FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 
 var devType = process.argv.pop();
-console.log("argv-------------:"+devType);
 var excluChunks;
 if(devType == "web"){
   excluChunks = ['appM']
